@@ -11,8 +11,10 @@ const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 
+// Connect to MongoDB
 connectDB(process.env.DB_URI);
 
+// Middleware
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(express.json());
@@ -22,23 +24,18 @@ app.use(cors({
   credentials: true
 }));
 
-
-// Connect to MongoDB
-connectDB();
-
-// Middleware to parse JSON
-app.use(express.json());
 // Root route
 app.get('/', (req, res) => {
-    res.send('Welcome to CRM Server!');
-  });
+  res.send('Welcome to CRM Server!');
+});
 
+// Routes
 app.use('/auth', authRoutes);
 app.use('/contacts', contactRoutes);
 
+// Error handler
 app.use(errorHandler);
 
+// Start server
 const port = process.env.PORT || 5000;
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+app.listen(port, () => console.log(`Server running on port ${port}`));

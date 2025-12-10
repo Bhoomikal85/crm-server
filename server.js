@@ -22,6 +22,17 @@ app.use(cors({
   credentials: true
 }));
 
+
+// Connect to MongoDB
+connectDB();
+
+// Middleware to parse JSON
+app.use(express.json());
+// Root route
+app.get('/', (req, res) => {
+    res.send('Welcome to CRM Server!');
+  });
+
 app.use('/auth', authRoutes);
 app.use('/contacts', contactRoutes);
 

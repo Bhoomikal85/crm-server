@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const contactController = require('../controllers/contactController');
-const { verifyAccessToken } = require('../middleware/auth');
+const { verifyAccessToken } = require('../middleware/verifyAuth');
 const { contactValidator } = require('../validators/validators');
 
 router.use(verifyAccessToken);

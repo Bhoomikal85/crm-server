@@ -19,19 +19,22 @@ app.use(helmet());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
+
 app.use(cors({
-  origin: process.env.CLIENT_URL,
-  credentials: true
+  origin: 'http://localhost:3000', // your frontend URL
+  credentials: true, // allow cookies
 }));
+
 
 // Root route
 app.get('/', (req, res) => {
   res.send('Welcome to CRM Server!');
 });
+app.get('/test', (req, res) => res.send('Server is running'));
 
 // Routes
-app.use('/auth', authRoutes);
-app.use('/contacts', contactRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/contacts', contactRoutes);
 
 // Error handler
 app.use(errorHandler);
